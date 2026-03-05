@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Breathe Easy | Global Air Quality</title>
+    <title>How's My Air? | Global Air Quality</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -15,8 +15,8 @@
     <div class="max-w-2xl mx-auto space-y-6">
         <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-200">
             <div class="p-8 md:p-12 text-center">
-                <h1 class="text-4xl font-black tracking-tight mb-2 text-slate-800">Breathe Easy</h1>
-                <div id="location-text" class="text-blue-600 font-semibold uppercase tracking-widest text-sm mb-6">Check the air quality anywhere</div>
+                <h1 class="text-4xl font-black tracking-tight mb-2 text-slate-800">How's My Air?</h1>
+                <div id="location-text" class="text-blue-600 font-semibold uppercase tracking-widest text-sm mb-6">Real-time air quality for any city</div>
 
                 <div class="flex flex-col md:flex-row gap-2 mb-8">
                     <input type="text" id="city-input" placeholder="Enter city (e.g. London, Tokyo)" 
@@ -42,46 +42,43 @@
                     
                     <p id="aqi-desc" class="text-slate-500 max-w-sm mx-auto leading-relaxed mb-8"></p>
 
-                    <div class="border-t border-slate-100 pt-8 space-y-4">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Live Pollutant Analysis</h3>
+                    <div class="border-t border-slate-100 pt-8 space-y-4 text-left">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4 text-center">Live Pollutant Analysis</h3>
                         
                         <div class="grid grid-cols-1 gap-3">
-                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl text-left border border-slate-100">
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
                                 <div class="flex-1 pr-4">
                                     <p class="text-xs font-bold text-slate-800 uppercase flex items-center gap-1">
                                         PM2.5 <span class="text-[10px] font-normal text-slate-400 lowercase">(fine particles)</span>
                                     </p>
-                                    <p class="text-[11px] text-slate-500 leading-tight mt-1">Combatting soot and smoke. These tiny particles can bypass the lungs and enter the bloodstream.</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight mt-1">Tiny soot/smoke particles that can bypass the lungs and enter the bloodstream.</p>
                                 </div>
                                 <div class="text-right">
                                     <p id="val-pm25" class="text-2xl font-black text-slate-700">--</p>
-                                    <p class="text-[9px] text-slate-400 font-bold uppercase">µg/m³</p>
                                 </div>
                             </div>
                             
-                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl text-left border border-slate-100">
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
                                 <div class="flex-1 pr-4">
                                     <p class="text-xs font-bold text-slate-800 uppercase flex items-center gap-1">
                                         PM10 <span class="text-[10px] font-normal text-slate-400 lowercase">(coarse particles)</span>
                                     </p>
-                                    <p class="text-[11px] text-slate-500 leading-tight mt-1">Dust, pollen, and mold. Larger particles that typically irritate the nose, throat, and eyes.</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight mt-1">Larger particles like dust and pollen. Can irritate eyes, nose, and throat.</p>
                                 </div>
                                 <div class="text-right">
                                     <p id="val-pm10" class="text-2xl font-black text-slate-700">--</p>
-                                    <p class="text-[9px] text-slate-400 font-bold uppercase">µg/m³</p>
                                 </div>
                             </div>
                             
-                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl text-left border border-slate-100">
+                            <div class="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
                                 <div class="flex-1 pr-4">
                                     <p class="text-xs font-bold text-slate-800 uppercase flex items-center gap-1">
                                         NO2 <span class="text-[10px] font-normal text-slate-400 lowercase">(nitrogen dioxide)</span>
                                     </p>
-                                    <p class="text-[11px] text-slate-500 leading-tight mt-1">Traffic-related gas. High levels can inflame airways and trigger asthma or bronchitis.</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight mt-1">Gas primarily from car engines. Known to inflame airways and trigger asthma.</p>
                                 </div>
                                 <div class="text-right">
                                     <p id="val-no2" class="text-2xl font-black text-slate-700">--</p>
-                                    <p class="text-[9px] text-slate-400 font-bold uppercase">ppb</p>
                                 </div>
                             </div>
                         </div>
@@ -110,7 +107,7 @@
                 </div>
                 <div class="p-3 rounded-xl bg-orange-50 border border-orange-100 text-center">
                     <p class="text-orange-700 font-bold text-xs">101-150</p>
-                    <p class="text-[10px] text-orange-600 uppercase font-black">Unhealthy for Sensitive Groups</p>
+                    <p class="text-[10px] text-orange-600 uppercase font-black">Sensitive</p>
                 </div>
                 <div class="p-3 rounded-xl bg-red-50 border border-red-100 text-center">
                     <p class="text-red-700 font-bold text-xs">151+</p>
@@ -144,7 +141,6 @@
             const response = await fetch(url);
             const result = await response.json();
 
-            // Validate that we have a numeric AQI score
             if (result.status === "ok" && result.data.aqi !== null && !isNaN(result.data.aqi)) {
                 const data = result.data;
                 display.classList.remove('hidden');
@@ -155,21 +151,19 @@
                 timeStamp.innerText = `Measured: ${data.time.s}`;
                 document.getElementById('aqi-value').innerText = data.aqi;
                 
-                // Set Pollutant values with "-" fallback
                 document.getElementById('val-pm25').innerText = data.iaqi.pm25?.v || "-";
                 document.getElementById('val-pm10').innerText = data.iaqi.pm10?.v || "-";
                 document.getElementById('val-no2').innerText = data.iaqi.no2?.v || "-";
 
                 updateUI(data.aqi);
             } else {
-                // If the station sends back a dash or fails
                 display.classList.add('hidden');
-                locationText.innerText = "⚠️ This station is currently offline or providing invalid data. Try a different city.";
-                locationText.className = "text-red-500 font-bold text-sm mb-6 bg-red-50 p-4 rounded-xl shadow-sm";
+                locationText.innerText = "⚠️ Station offline or invalid data. Try a different city.";
+                locationText.className = "text-red-500 font-bold text-sm mb-6 bg-red-50 p-4 rounded-xl";
                 initialActions.classList.remove('hidden');
             }
         } catch (error) {
-            locationText.innerText = "Network Error. Please check your connection.";
+            locationText.innerText = "Network Error. Check your connection.";
         }
     }
 
@@ -184,27 +178,21 @@
         if (aqi <= 50) {
             status.innerText = "Healthy";
             status.className = "text-3xl font-bold text-green-600";
-            desc.innerText = "The air is clear! A perfect time to open the windows or go for a run.";
+            desc.innerText = "Air is clear. Perfect for outdoor exercise or opening the windows.";
             circle.style.borderColor = "#22c55e";
         } else if (aqi <= 100) {
             status.innerText = "Moderate";
             status.className = "text-3xl font-bold text-yellow-600";
-            desc.innerText = "Air quality is acceptable. Only highly sensitive people should limit exertion.";
+            desc.innerText = "Acceptable air. Highly sensitive people should limit long sessions outside.";
             circle.style.borderColor = "#eab308";
-        } else if (aqi <= 150) {
-            status.innerText = "Unhealthy+";
-            status.className = "text-3xl font-bold text-orange-600";
-            desc.innerText = "High pollution for sensitive groups. Close windows if you have asthma.";
-            circle.style.borderColor = "#f97316";
         } else {
-            status.innerText = "Poor";
+            status.innerText = "Unhealthy";
             status.className = "text-3xl font-bold text-red-600";
-            desc.innerText = "Significant pollution detected. We recommend staying indoors today.";
+            desc.innerText = "Pollution detected. Keep windows closed and avoid heavy exercise today.";
             circle.style.borderColor = "#ef4444";
         }
     }
     
-    // Support the Enter key
     document.getElementById('city-input').addEventListener('keypress', (e) => {
         if (e.key === 'Enter') getAirQuality('search');
     });
