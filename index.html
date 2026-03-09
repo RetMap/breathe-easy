@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO & Metadata -->
     <title>How's My Air? | Real-Time Global Air Quality Tracker</title>
     <meta name="description" content="Check live air quality (AQI) and pollution levels for any city. Get real-time PM2.5, PM10, and NO2 data with health advice to stay safe.">
     <meta name="keywords" content="air quality index, live pollution tracker, PM2.5 monitor, NO2 levels, How's My Air">
     <link rel="canonical" href="https://retmap.github.io/breathe-easy/">
 
-    <!-- JSON-LD Schema for SEO -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -43,11 +41,20 @@
 <body class="bg-[#f8fafc] min-h-screen py-10 px-4 font-sans text-slate-700">
 
     <main class="max-w-2xl mx-auto space-y-6 pb-12">
-        <!-- Header & Search -->
         <section class="bg-white rounded-[2.5rem] shadow-sm overflow-hidden border border-slate-100 p-8 md:p-12 text-center">
             <header class="flex flex-col items-center mb-6">
                 <img src="logo.jpg" alt="How's My Air Logo - Live Air Quality Monitoring" class="w-64 h-auto mb-2 opacity-90">
-                <p id="location-text" class="text-slate-400 font-medium uppercase tracking-widest text-[10px]">Your daily air quality companion</p>
+                
+                <div class="max-w-md mx-auto mb-4">
+                    <p id="location-text" class="text-slate-400 font-medium uppercase tracking-widest text-[10px] mb-2">
+                        Your daily air quality companion
+                    </p>
+                    <p class="text-slate-500 text-xs leading-relaxed">
+                        Monitor real-time pollution levels and health risks globally. 
+                        <strong>To use:</strong> Enter a city name below, select a popular location, 
+                        or use "Detect Current Location" for instant local data.
+                    </p>
+                </div>
             </header>
 
             <div class="flex flex-col md:flex-row gap-3 mb-6">
@@ -64,7 +71,6 @@
                 <div class="loader" id="main-loader"></div>
             </div>
 
-            <!-- Results Section -->
             <div id="aqi-display" class="hidden animate-results">
                 <div id="aqi-circle" class="w-44 h-44 rounded-full mx-auto flex flex-col items-center justify-center mb-6 border-[10px] bg-white transition-all duration-700 shadow-sm">
                     <span id="aqi-value" class="text-6xl font-light text-slate-600">--</span>
@@ -75,7 +81,6 @@
                 <div id="time-stamp" class="text-[10px] text-slate-400 uppercase mb-6 tracking-widest text-center">--</div>
                 <p id="aqi-desc" class="text-slate-500 max-w-sm mx-auto leading-relaxed mb-8 text-sm italic"></p>
 
-                <!-- Detailed Pollutant Analysis -->
                 <div class="border-t border-slate-50 pt-8 space-y-3 text-left">
                     <h3 class="text-[10px] font-bold text-slate-300 uppercase tracking-widest mb-4 text-center">Pollutant Breakdown</h3>
                     
@@ -104,15 +109,20 @@
                     </div>
                 </div>
 
-                <!-- 5-Day Forecast -->
                 <div class="border-t border-slate-50 pt-8 mt-6">
-                    <h3 class="text-[10px] font-bold text-slate-300 uppercase tracking-widest mb-4 text-center">5-Day Forecast (PM2.5)</h3>
-                    <div id="forecast-container" class="grid grid-cols-5 gap-2">
-                        <!-- Forecast items will be injected here -->
+                    <h3 id="forecast-title" class="text-[10px] font-bold text-slate-300 uppercase tracking-widest mb-4 text-center">5-Day Forecast</h3>
+                    
+                    <div class="flex justify-center items-center gap-4 mb-6">
+                        <div class="inline-flex bg-slate-100 p-1 rounded-xl">
+                            <button onclick="toggleForecast('pm25')" id="btn-pm25" class="px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all bg-white shadow-sm text-blue-500">PM2.5</button>
+                            <button onclick="toggleForecast('pm10')" id="btn-pm10" class="px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all text-slate-400 hover:text-slate-600">PM10</button>
+                        </div>
                     </div>
+
+                    <div id="forecast-container" class="grid grid-cols-5 gap-2">
+                        </div>
                 </div>
 
-                <!-- Reset Button for Results -->
                 <div class="mt-8 pt-4 border-t border-slate-50">
                     <button onclick="resetUI()" class="text-slate-400 text-[10px] uppercase font-bold tracking-widest hover:text-blue-400 transition-colors">
                         ← Back to Search
@@ -120,9 +130,7 @@
                 </div>
             </div>
 
-            <!-- Load Screen Actions -->
             <div id="load-screen-actions" class="mt-4">
-                <!-- Popular Locations Section -->
                 <div class="mb-8">
                     <p class="text-[10px] text-slate-300 uppercase tracking-widest mb-4">Popular Locations</p>
                     <div class="flex flex-wrap justify-center gap-2 px-4">
@@ -143,7 +151,6 @@
             </div>
         </section>
 
-        <!-- Reference Scale -->
         <section class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
             <h3 class="text-sm font-bold mb-4 text-slate-400 uppercase tracking-widest text-center">Safety Reference</h3>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -166,7 +173,6 @@
             </div>
         </section>
 
-        <!-- FAQ Section -->
         <section class="bg-white rounded-3xl p-8 shadow-sm border border-slate-100">
             <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Frequently Asked Questions</h3>
             <div class="space-y-6 text-sm">
@@ -185,7 +191,6 @@
             </div>
         </section>
 
-        <!-- Copyright & Footer -->
         <footer class="mt-12 text-center text-[10px] text-slate-400 uppercase tracking-widest">
             <p class="mb-2">&copy; 2026 How's My Air? &bull; Built with Care</p>
             <p>Air Quality Data provided by the <a href="https://aqicn.org/" target="_blank" rel="noopener" class="underline hover:text-slate-600 transition-colors">WAQI Open Data Platform</a></p>
@@ -194,6 +199,8 @@
 
     <script>
     const API_TOKEN = "959c3e711f5d014c57766bebd8e507140b759683";
+    let activeForecastData = null; // Store data globally to allow toggling
+    let currentPollutant = 'pm25';
 
     function resetUI() {
         const display = document.getElementById('aqi-display');
@@ -248,7 +255,8 @@
                 document.getElementById('val-pm10').innerText = data.iaqi.pm10?.v || "-";
                 document.getElementById('val-no2').innerText = data.iaqi.no2?.v || "-";
 
-                renderForecast(data.forecast?.daily?.pm25);
+                activeForecastData = data.forecast?.daily;
+                renderForecast();
                 updateUI(data.aqi);
             } else {
                 locationText.innerText = "⚠️ Station data unavailable. Try a nearby city.";
@@ -263,12 +271,30 @@
         }
     }
 
-    function renderForecast(forecast) {
+    function toggleForecast(pollutant) {
+        currentPollutant = pollutant;
+        
+        // Update Button UI
+        const isPM25 = pollutant === 'pm25';
+        document.getElementById('btn-pm25').className = isPM25 ? 
+            "px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all bg-white shadow-sm text-blue-500" : 
+            "px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all text-slate-400 hover:text-slate-600";
+        
+        document.getElementById('btn-pm10').className = !isPM25 ? 
+            "px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all bg-white shadow-sm text-blue-500" : 
+            "px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all text-slate-400 hover:text-slate-600";
+
+        renderForecast();
+    }
+
+    function renderForecast() {
         const container = document.getElementById('forecast-container');
         container.innerHTML = '';
         
+        const forecast = activeForecastData ? activeForecastData[currentPollutant] : null;
+        
         if (!forecast || forecast.length === 0) {
-            container.innerHTML = '<p class="col-span-5 text-[10px] text-slate-300 italic">Forecast data unavailable</p>';
+            container.innerHTML = '<p class="col-span-5 text-[10px] text-slate-300 italic py-4">Forecast data unavailable for this pollutant</p>';
             return;
         }
 
@@ -279,12 +305,14 @@
 
             let bgColor = "bg-slate-50";
             let textColor = "text-slate-400";
+            
+            // Simplified coloring for forecast blocks
             if (avgAqi <= 50) { bgColor = "bg-[#f0fdf4]"; textColor = "text-green-500"; }
             else if (avgAqi <= 100) { bgColor = "bg-[#fefce8]"; textColor = "text-yellow-600"; }
             else { bgColor = "bg-[#fff1f2]"; textColor = "text-red-400"; }
 
             container.innerHTML += `
-                <div class="${bgColor} rounded-xl p-2 flex flex-col items-center justify-center border border-white">
+                <div class="${bgColor} rounded-xl p-2 flex flex-col items-center justify-center border border-white animate-results">
                     <p class="text-[9px] font-bold uppercase text-slate-300">${dayName}</p>
                     <p class="text-sm font-black ${textColor}">${avgAqi}</p>
                 </div>
